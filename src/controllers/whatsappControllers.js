@@ -1,3 +1,6 @@
+const fs = require('fs')
+const myConsole = new console.Console(fs.createWriteStream('./logs.txt'))
+
 const VerifyToken = (req, res, next) => {
     try {
         const access_token = process.env.ACCESS_TOKEN
@@ -15,7 +18,20 @@ const VerifyToken = (req, res, next) => {
 }
 
 const ReceivedMessage = (req, res) => {
-    res.send('Message received')
+    try {
+        const entry = req.body.entry[0]
+        const changes =  entry.changes[0]
+        const value = changes.value
+        const messageObject = value.messages
+
+        myConsole.log(messageObject)
+
+        res.send('EVENT_RECEIVED')
+    } catch (error) {
+        myConsole.log(error)
+        res.send('EVENT_RECEIVED')
+        res.status(400).send('Invalid token')
+    }
 }
 
 module.exports = {
