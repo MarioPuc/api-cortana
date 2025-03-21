@@ -10,5 +10,5 @@ app.use(express.json())
 app.use('/whatsapp', apiRoute)
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`)
+  console.log(`Server is running on port ${PORT} tk ${process.env.ACCESS_TOKEN}`)
 })
