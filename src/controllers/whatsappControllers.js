@@ -28,6 +28,7 @@ const ReceivedMessage = (req, res) => {
         if(typeof messageObject !== 'undefined') {
             const text = GetTextUser(messageObject[0])
             const phone = messageObject[0].from
+            myConsole.log(messageObject[0])
             myConsole.log(text)
 
             whatsappService.SendMessageWhatsApp("user says: " + text, phone)
