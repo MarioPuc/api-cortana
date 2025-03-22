@@ -1,7 +1,9 @@
 const https = require('https')
+const myConsole = new console.Console(fs.createWriteStream('./logs.txt'))
 
 function SendMessageWhatsApp(textResponse, phone) {
     normalizedPhone = normalizarNumeroWhatsApp(phone)
+    myConsole.log("normalized phone: " + normalizedPhone)
     const data = JSON.stringify({
         "messaging_product": "whatsapp",
         "recipient_type": "individual",
