@@ -8,8 +8,7 @@ function SendMessageWhatsApp(textResponse, phone) {
         "to": normalizedPhone,
         "type": "text",
         "text": {
-            "body": {
-                "text": textResponse
+            "body": textResponse
             },
         }
     })
