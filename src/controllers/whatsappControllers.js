@@ -22,9 +22,10 @@ const ReceivedMessage = (req, res) => {
         const entry = req.body.entry[0]
         const changes =  entry.changes[0]
         const value = changes.value
-        const messageObject = value.messages[0]
+        const messageObject = value.messages
 
         const text = GetTextUser(messageObject[0])
+        myConsole.log(text)
 
         res.send('EVENT_RECEIVED')
     } catch (error) {
