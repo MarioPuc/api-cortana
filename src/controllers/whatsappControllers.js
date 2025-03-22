@@ -48,7 +48,7 @@ const GetTextUser = (messages) => {
         myConsole.log(interactiveObject)
 
         if(typeInteractive === 'button_reply') {
-            text = (interactiveObject.button_reply.title === 'yes') ? 'yes' : 'no'
+            text = interactiveObject.button_reply.title
         } else if(typeInteractive === 'list_reply') {
             text = interactiveObject.list.title
         } else {
