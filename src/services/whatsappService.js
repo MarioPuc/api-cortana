@@ -1,10 +1,11 @@
 const https = require('https')
 
 function SendMessageWhatsApp(textResponse, phone) {
+    normalizedPhone = normalizarNumeroWhatsApp(phone)
     const data = JSON.stringify({
         "messaging_product": "whatsapp",
         "recipient_type": "individual",
-        "to": phone,
+        "to": normalizedPhone,
         "type": "text",
         "text": {
             "body": {
@@ -37,6 +38,15 @@ function SendMessageWhatsApp(textResponse, phone) {
     req.write(data)
     req.end()
 }
+
+function normalizarNumeroWhatsApp(from) {
+    if (!from.startsWith("52")) return from
+    let resto = from.slice(2)
+    if (resto.startsWith("1") && resto.length === 11) {
+      resto = resto.slice(1)
+    }
+    return "52" + resto;
+  }
 
 module.exports = {
     SendMessageWhatsApp
