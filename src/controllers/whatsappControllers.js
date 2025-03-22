@@ -55,6 +55,7 @@ const GetTextUser = (messages) => {
     } else {
         myConsole.log('Unknow message')
     }
+    return text
 }
 
 module.exports = {
