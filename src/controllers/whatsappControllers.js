@@ -1,5 +1,6 @@
 const fs = require('fs')
 const myConsole = new console.Console(fs.createWriteStream('./logs.txt'))
+const whatsappService = require('../services/whatsappService')
 
 const VerifyToken = (req, res, next) => {
     try {
@@ -26,7 +27,10 @@ const ReceivedMessage = (req, res) => {
 
         if(typeof messageObject !== 'undefined') {
             const text = GetTextUser(messageObject[0])
+            const phone = messageObject[0].from
             myConsole.log(text)
+
+            whatsappService.SendMessageWhatsApp("user says: " + text, phone)
         }
 
         res.send('EVENT_RECEIVED')
@@ -45,7 +49,6 @@ const GetTextUser = (messages) => {
     } else if(typeMessage === 'interactive') {
         const interactiveObject = messages.interactive
         const typeInteractive = interactiveObject.type
-        myConsole.log(interactiveObject)
 
         if(typeInteractive === 'button_reply') {
             text = interactiveObject.button_reply.title
