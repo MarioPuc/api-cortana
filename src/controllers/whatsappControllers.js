@@ -24,7 +24,7 @@ const ReceivedMessage = (req, res) => {
         const value = changes.value
         const messageObject = value.messages[0]
 
-        const text = GetTextUser(messages)
+        const text = GetTextUser(messageObject)
 
         res.send('EVENT_RECEIVED')
     } catch (error) {
