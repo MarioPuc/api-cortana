@@ -12,7 +12,6 @@ function SendMessageWhatsApp(textResponse, phone) {
         "text": {
             "body": textResponse
             },
-        }
     })
 
     const options = {
