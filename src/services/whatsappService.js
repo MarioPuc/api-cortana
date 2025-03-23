@@ -20,7 +20,7 @@ function SendMessageWhatsApp(textResponse, phone) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer EAAJQx4IZByKgBOz24F8LMktSdsJBitbZCSmK9CmueLOvVckjDcxYxPXnqJX24QJqGhXcP5AKfuFyBWGPopPDJGWUY5GQZBNar8lxVn4tVZBh6CxZAhZCZCMi7EgzZCTBEW9DpjPRwZC9DJJLa2ysC3u8ZClIvNiJPcn0799pkLFV9a2zjnLqZCleT3UZAhbwHB9DuqCzUAZDZD',
+            Authorization: 'Bearer ' + process.env.WHATSAPP_TOKEN,
             'Content-Length': Buffer.byteLength(data)
         }
     }
