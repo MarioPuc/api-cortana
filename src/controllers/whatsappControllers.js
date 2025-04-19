@@ -1,6 +1,7 @@
 const fs = require('fs')
 const myConsole = new console.Console(fs.createWriteStream('./logs.txt'))
 const whatsappService = require('../services/whatsappService')
+const openAIService = require('../services/openAIService')
 
 const VerifyToken = (req, res, next) => {
     try {
@@ -18,7 +19,7 @@ const VerifyToken = (req, res, next) => {
     }
 }
 
-const ReceivedMessage = (req, res) => {
+const ReceivedMessage = async (req, res) => {
     try {
         const entry = req.body.entry[0]
         const changes =  entry.changes[0]
@@ -31,7 +32,11 @@ const ReceivedMessage = (req, res) => {
             myConsole.log(messageObject[0])
             myConsole.log(text)
 
-            whatsappService.SendMessageWhatsApp("user says: " + text, phone)
+            // Obtener respuesta de OpenAI con el historial de conversación
+            const aiResponse = await openAIService.getAIResponse(text, phone)
+            
+            // Enviar la respuesta de OpenAI por WhatsApp
+            await whatsappService.SendMessageWhatsApp(aiResponse, phone)
         }
 
         res.send('EVENT_RECEIVED')
