@@ -1,10 +1,8 @@
-const { Configuration, OpenAIApi } = require('openai');
+const OpenAI = require('openai');
 
-const configuration = new Configuration({
+const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
-
-const openai = new OpenAIApi(configuration);
 
 // Contexto del asesor de ventas
 const salesContext = `Eres un asesor de ventas experto y amable. 
@@ -59,14 +57,14 @@ const getAIResponse = async (userMessage, phoneNumber) => {
         // Agregar el nuevo mensaje del usuario al historial
         addMessageToHistory(phoneNumber, "user", userMessage);
 
-        const completion = await openai.createChatCompletion({
+        const completion = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             messages: messages,
             temperature: 0.7,
             max_tokens: 150
         });
 
-        const aiResponse = completion.data.choices[0].message.content;
+        const aiResponse = completion.choices[0].message.content;
         
         // Agregar la respuesta del asistente al historial
         addMessageToHistory(phoneNumber, "assistant", aiResponse);
